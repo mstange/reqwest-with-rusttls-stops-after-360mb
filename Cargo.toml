@@ -1,0 +1,29 @@
+[package]
+name = "reqwest-gzip-progress"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+flate2 = "1.0.25"
+reqwest = { version = "0.11.14", features = ["rustls-tls", "stream"] }
+tokio = { version = "1.25.0", default-features = false, features = [
+  "rt",
+  "rt-multi-thread",
+  "macros"
+] }
+futures-core = { version = "0.3.0", default-features = false }
+futures-util = { version = "0.3.0", default-features = false }
+async-compression = { version = "0.3.13", default-features = false, features = [
+  "tokio",
+  "futures-io",
+  "gzip"
+] }
+tokio-util = { version = "0.7.1", default-features = false, features = [
+  "codec",
+  "io"
+] }
+bytes = "1.4.0"
+futures = "0.3.26"
+async-compat = "0.2.1"
+thiserror = "1.0.38"
