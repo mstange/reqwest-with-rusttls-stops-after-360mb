@@ -5,22 +5,21 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
-reqwest = { version = "0.11.14", features = [ "rustls-tls", "stream" ] }
+reqwest = { version = "0.11.14", default-features = false, features = [
+  "rustls-tls",
+  "stream",
+#  "default-tls",
+] }
 tokio = { version = "1.25.0", default-features = false, features = [
   "fs",
   "macros",
   "rt",
   "rt-multi-thread"
 ] }
-dirs = "4.0"
 futures = "0.3.26"
-cab = "0.4.0"
-futures-util = "0.3.26"
 async-compression = { version = "0.3.13", default-features = false, features = [
-  "tokio",
   "futures-io",
   "gzip"
 ] }
-tempfile = "3.1.0"
 async-compat = "0.2.1"
 thiserror = "1.0.38"

@@ -214,12 +214,23 @@ async fn main() {
     let builder = builder.header("Accept-Encoding", "gzip");
     let response = builder.send().await.unwrap();
 
-    let mut file = tokio::fs::File::create("/Users/mstange/sym/chrome.dll.pdb/93B17FC546DE07D14C4C44205044422E1/chrome.dll.pdb").await.unwrap();
+    let mut file = tokio::fs::File::create(
+        "/Users/mstange/sym/chrome.dll.pdb/93B17FC546DE07D14C4C44205044422E1/chrome.dll.pdb",
+    )
+    .await
+    .unwrap();
+
+    let mut previous_reported = 0;
 
     let mut decompressed_async_read =
-        response_to_uncompressed_stream_with_progress(response, |accum, total| match total {
-            Some(total) => eprintln!("Downloaded {accum} of {total} bytes."),
-            None => eprintln!("Downloaded {accum} bytes."),
+        response_to_uncompressed_stream_with_progress(response, move |accum, total| {
+            if accum >= previous_reported + 100000 {
+                previous_reported = accum;
+                match total {
+                    Some(total) => eprintln!("Downloaded {accum} of {total} bytes."),
+                    None => eprintln!("Downloaded {accum} bytes."),
+                }
+            }
         })
         .unwrap();
 
