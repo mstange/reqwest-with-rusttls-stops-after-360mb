@@ -1,25 +1,16 @@
 [package]
-name = "reqwest-gzip-progress"
+name = "reqwest-with-rusttls-stops-after-360mb"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 reqwest = { version = "0.11.14", default-features = false, features = [
-  "rustls-tls",
-  "stream",
-#  "default-tls",
+    "stream",
+    "rustls-tls",
+    # "default-tls",
+
 ] }
 tokio = { version = "1.25.0", default-features = false, features = [
-  "fs",
-  "macros",
-  "rt",
-  "rt-multi-thread"
+    "macros",
+    "rt"
 ] }
-futures = "0.3.26"
-async-compression = { version = "0.3.13", default-features = false, features = [
-  "futures-io",
-  "gzip"
-] }
-async-compat = "0.2.1"
-thiserror = "1.0.38"
