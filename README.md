@@ -1,8 +1,9 @@
 # `reqwest-with-rusttls-stops-after-360mb`
 
-This is a testcase which reproduces a bug with reqwest and the Chrome symbol server: The file stops downloading after 360MB. It is 640MB in total.
+This is a testcase for https://github.com/seanmonstar/reqwest/issues/1761.
+It reproduces a bug with reqwest and the Chrome symbol server: The file stops downloading after 360MB. It is 640MB in total.
 
-The bug only occurs when using the reqwest feature `rusttls-tls`. I think this means that it only happens if the request is made using HTTP/2.
+The bug only occurs when using HTTP/2.
 
 The bug also only occurs when downloading the gzip-compressed version of the file.
 
@@ -28,6 +29,7 @@ Any of the following changes make the download complete successfully:
  - Change `https` into `http`.
  - Remove the `Accept-Encoding: gzip` header.
  - Edit `Cargo.toml` to use `"default-tls"` instead of `"rustls-tls"` (causes HTTP/1.1 to be used)
+ - Call `.http1_only()` on the client builder.
 
 The file can be downloaded successfully with `curl -o chrome.dll.pdb --compressed "https://chromium-browser-symsrv.commondatastorage.googleapis.com/chrome.dll.pdb/93B17FC546DE07D14C4C44205044422E1/chrome.dll.pdb"`, which also uses HTTP/2. It decompresses to a 3GB file.
 

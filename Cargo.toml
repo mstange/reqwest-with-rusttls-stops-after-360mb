@@ -4,13 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-reqwest = { version = "0.11.14", default-features = false, features = [
+reqwest = { version = "0.11.24", default-features = false, features = [
     "stream",
     "rustls-tls",
     # "default-tls",
 
 ] }
-tokio = { version = "1.25.0", default-features = false, features = [
+tokio = { version = "1.36.0", default-features = false, features = [
     "macros",
     "rt"
 ] }

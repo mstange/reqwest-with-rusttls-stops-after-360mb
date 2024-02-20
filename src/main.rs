@@ -4,12 +4,12 @@ async fn main() {
     let url = "https://chromium-browser-symsrv.commondatastorage.googleapis.com/chrome.dll.pdb/93B17FC546DE07D14C4C44205044422E1/chrome.dll.pdb";
 
     let client_builder = reqwest::Client::builder();
-    let client = client_builder
-        .no_gzip()
-        .no_brotli()
-        .no_deflate()
-        .build()
-        .unwrap();
+    let client_builder = client_builder.no_gzip().no_brotli().no_deflate();
+
+    // Uncomment the following line to make the download finish successfully:
+    // let client_builder = client_builder.http1_only();
+
+    let client = client_builder.build().unwrap();
     let builder = client.get(url);
     let builder = builder.header("Accept-Encoding", "gzip");
     let mut response = builder.send().await.unwrap();
